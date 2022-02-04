@@ -1,17 +1,17 @@
-package com.study;
+package com.sun;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Sky extends FlyingObject {
-    private static BufferedImage image;
+    private static final BufferedImage image;
 
     static {
         image = FlyingObject.readImage("images/background.png");
     }
 
     private int y1;
-    private int speed;
+    private final int speed;
 
     public Sky() {
         super(World.WIDTH, World.HEIGHT, 0, 0);

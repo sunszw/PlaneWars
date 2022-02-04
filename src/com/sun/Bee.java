@@ -1,9 +1,9 @@
-package com.study;
+package com.sun;
 
 import java.awt.image.BufferedImage;
 
 public class Bee extends FlyingObject implements Award {
-    private static BufferedImage[] images;
+    private static final BufferedImage[] images;
 
     static {
         images = new BufferedImage[5];
@@ -14,8 +14,8 @@ public class Bee extends FlyingObject implements Award {
     }
 
     private int xSpeed;
-    private int ySpeed;
-    private int awardType;//0奖励火力值，1奖励生命值
+    private final int ySpeed;
+    private final int awardType;//0奖励火力值，1奖励生命值
 
     public Bee() {
         super(60, 51);

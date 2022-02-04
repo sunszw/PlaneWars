@@ -1,9 +1,10 @@
-package com.study;
+package com.sun;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class FlyingObject {
@@ -17,9 +18,6 @@ public abstract class FlyingObject {
     public static final int LIVE = 0;
     public static final int DEAD = 1;
     public static final int REMOVE = 2;
-
-    public FlyingObject() {
-    }
 
     //小敌机、大敌机、蜜蜂
     public FlyingObject(int width, int height) {
@@ -44,8 +42,7 @@ public abstract class FlyingObject {
     //读取图片
     public static BufferedImage readImage(String fileName) {
         try {
-            BufferedImage img = ImageIO.read(FlyingObject.class.getClassLoader().getResourceAsStream(fileName));
-            return img;
+            return ImageIO.read(Objects.requireNonNull(FlyingObject.class.getClassLoader().getResourceAsStream(fileName)));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();

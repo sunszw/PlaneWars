@@ -1,4 +1,4 @@
-package com.study;
+package com.sun;
 
 import javax.swing.*;
 

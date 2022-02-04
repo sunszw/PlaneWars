@@ -1,4 +1,4 @@
-package com.study;
+package com.sun;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,21 +19,21 @@ public class World extends JPanel {
     public static final int GAME_OVER = 3;
     private int state = START;
 
-    private static BufferedImage start;
-    private static BufferedImage pause;
-    private static BufferedImage gameover;
+    private static final BufferedImage start;
+    private static final BufferedImage pause;
+    private static final BufferedImage gameOver;
 
     static {
         start = FlyingObject.readImage("images/start.png");
         pause = FlyingObject.readImage("images/pause.png");
-        gameover = FlyingObject.readImage("images/gameover.png");
+        gameOver = FlyingObject.readImage("images/gameover.png");
     }
 
     Hero hero = new Hero();
     Sky sky = new Sky();
 
-    Collection<FlyingObject> enemies = new ArrayList<>();
-    Collection<Bullet> bullets = new ArrayList<>();
+    final Collection<FlyingObject> enemies = new ArrayList<>();
+    final Collection<Bullet> bullets = new ArrayList<>();
 
     private int score;
 
@@ -115,12 +115,12 @@ public class World extends JPanel {
 
     //随机生成敌机
     public FlyingObject nextEnemy() {
-        FlyingObject flys = null;
+        FlyingObject flys;
         Random ran = new Random();
         int num = ran.nextInt(100);
         if (num < 20) {
             flys = new Bee();
-        } else if (num >= 20 && num < 60) {
+        } else if (num < 60) {
             flys = new BigAirplane();
         } else {
             flys = new Airplane();
@@ -144,7 +144,7 @@ public class World extends JPanel {
     //敌机进场
     public void enterAction() {
         enter++;
-        if (enter % 20 == 0) {// �÷�������20�βŽ���һ��
+        if (enter % 20 == 0) {
             synchronized (enemies) {
                 FlyingObject fly = nextEnemy();
                 enemies.add(fly);
@@ -205,23 +205,10 @@ public class World extends JPanel {
     public void outOfBoundsAction() {
         //遍历集合，删除越界的对象
         synchronized (enemies) {
-            Iterator<FlyingObject> itf = enemies.iterator();
-            while (itf.hasNext()) {
-                FlyingObject fo = itf.next();
-                if (fo.outOfBounds() && !fo.isRemove()) {
-                    itf.remove();
-                }
-
-            }
+            enemies.removeIf(fo -> fo.outOfBounds() && fo.isRemove());
         }
         synchronized (bullets) {
-            Iterator<Bullet> itb = bullets.iterator();
-            while (itb.hasNext()) {
-                Bullet b = itb.next();
-                if (b.outOfBounds() && !b.isRemove()) {
-                    itb.remove();
-                }
-            }
+            bullets.removeIf(b -> b.outOfBounds() && b.isRemove());
         }
     }
 
@@ -258,7 +245,7 @@ public class World extends JPanel {
                 g.drawImage(pause, 0, 0, null);
                 break;
             case GAME_OVER:
-                g.drawImage(gameover, 0, 0, null);
+                g.drawImage(gameOver, 0, 0, null);
                 break;
         }
     }

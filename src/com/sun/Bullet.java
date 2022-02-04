@@ -1,15 +1,15 @@
-package com.study;
+package com.sun;
 
 import java.awt.image.BufferedImage;
 
 public class Bullet extends FlyingObject {
-    private static BufferedImage image;
+    private static final BufferedImage image;
 
     static {
         image = FlyingObject.readImage("images/bullet.png");
     }
 
-    private int speed;
+    private final int speed;
 
     public Bullet(int x, int y) {
         super(8, 20, x, y);
@@ -33,7 +33,6 @@ public class Bullet extends FlyingObject {
 
     @Override
     public boolean outOfBounds() {
-
         return this.y < -this.height;
     }
 

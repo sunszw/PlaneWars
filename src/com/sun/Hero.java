@@ -1,9 +1,9 @@
-package com.study;
+package com.sun;
 
 import java.awt.image.BufferedImage;
 
 public class Hero extends FlyingObject {
-    private static BufferedImage[] images;
+    private static final BufferedImage[] images;
 
     static {
         images = new BufferedImage[2];

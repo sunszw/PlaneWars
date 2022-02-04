@@ -1,23 +1,23 @@
-package com.study;
+package com.sun;
 
 import java.awt.image.BufferedImage;
 
-public class Airplane extends FlyingObject implements Score {
-    private static BufferedImage[] images;
+public class BigAirplane extends FlyingObject implements Score {
+    private static final BufferedImage[] images;
 
     static {
         images = new BufferedImage[5];
-        images[0] = FlyingObject.readImage("images/airplane.png");
+        images[0] = FlyingObject.readImage("images/bigairplane.png");
         for (int i = 1; i < images.length; i++) {
             images[i] = FlyingObject.readImage("images/boom" + i + ".png");
         }
     }
 
-    private int speed;
+    private final int speed;
 
-    public Airplane() {
-        super(48, 50);
-        speed = 1;
+    public BigAirplane() {
+        super(66, 89);
+        speed = 2;
     }
 
     @Override
@@ -43,7 +43,6 @@ public class Airplane extends FlyingObject implements Score {
 
     @Override
     public int getScore() {
-        return 10;
+        return 20;
     }
-
 }
